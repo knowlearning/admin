@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import ContentTag from '../content-tag.vue'
+  import ContentTag from './content-tag.vue'
 
   const RESET_PATCH = [{ op: 'remove', path: [], JSONPath: '$' }]
 

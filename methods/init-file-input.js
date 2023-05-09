@@ -1,5 +1,5 @@
 import { v1 as uuid } from 'uuid'
-import createFolderContent from '../../../../lib/create-folder-content.js'
+import createFolderContent from '../create-folder-content.js'
 
 export default function initFileInput(el) {
   if (el === null || this.fileInput === el) return

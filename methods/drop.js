@@ -1,5 +1,5 @@
 import { v1 as uuid } from 'uuid'
-import createFolderContent from '../../../../lib/create-folder-content.js'
+import createFolderContent from '../create-folder-content.js'
 import getAllFileEntries from '../get-all-file-entries.js'
 
 const isUUID = x => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(x)

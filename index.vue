@@ -53,7 +53,7 @@
   import handleSave from './methods/save.js'
   import handleDrop from './methods/drop.js'
   import initFileInput from './methods/init-file-input.js'
-  import ContentTag from '../content-tag.vue'
+  import ContentTag from './content-tag.vue'
   import UserProfileImage from './user-profile-image.vue'
 
   const WATCH_SCOPE_CONTENT = './watch-scope.js'
@@ -189,6 +189,11 @@
 </script>
 
 <style>
+  body
+  {
+    margin: 0;
+  }
+
   #wrapper
   {
     height: 100vh;
