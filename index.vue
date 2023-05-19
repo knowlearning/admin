@@ -11,11 +11,6 @@
     <button @click="() => upload()">upload file</button>
     <button @click="() => upload(true)">upload folder</button>
     <button @click="logout">logout</button>
-    <ul>
-      <li v-for="id in interestingReferences" :key="id">
-        <ContentTag :id="id" />
-      </li>
-    </ul>
     <Window
       v-for="([wid, { root }]) in Object.entries(windows)"
       :key="wid"
@@ -37,6 +32,7 @@
     >
       <div>Saving...</div>
     </div>
+    <RelationalConfiguration />
   </div>
   <input
     style="display: none;"
@@ -55,6 +51,7 @@
   import initFileInput from './methods/init-file-input.js'
   import ContentTag from './content-tag.vue'
   import UserProfileImage from './user-profile-image.vue'
+  import RelationalConfiguration from './relational-configuration.vue'
 
   const WATCH_SCOPE_CONTENT = './watch-scope.js'
 
@@ -71,7 +68,8 @@
       Window,
       LoginMenu,
       ContentTag,
-      UserProfileImage
+      UserProfileImage,
+      RelationalConfiguration
     },
     data() {
       return {
@@ -96,27 +94,6 @@
     unmounted() {
       window.removeEventListener('dragover', this.handleDragover)
       window.removeEventListener('drop', this.handleDrop)
-    },
-    computed: {
-      interestingReferences() {
-        return [
-          '../builder.js',
-          '../content-explorer.vue',
-          '../development.vue',
-          '../embedder-content.vue',
-          '../reference/vue3-application.js',
-          '../../../test/index.js',
-          '../../examples/stream-upload.vue',
-          '../../examples/events.vue',
-          '../../examples/content-graph.js',
-          '../../examples/drag-and-drop-graph.vue',
-          '../analyze/session-viewer.vue',
-          '../edit/source-code-editor.js',
-          '../analyze/index.vue',
-          '../monitor/scope.js',
-          '../monitor/sessions.vue'
-        ]
-      }
     },
     methods: {
       handleSave,
