@@ -1,38 +1,27 @@
 <template>
   <div v-if="config">
-    <div v-for="columns, tableName in config.tables" :key="tableName">
-      <h1>{{ tableName }}</h1>
+    <div>
+      <button @click="createTable">Create new table</button>
+    </div>
+    <div v-for="columnInfo, tableName in config.tables">
+      <h1>
+        {{ tableName }}
+        <button @click="removeTable(tableName)">x</button>
+      </h1>
       <table>
         <tr>
-          <th>column</th>
-          <th>type</th>
-          <th>pattern</th>
-          <th></th>
-        </tr>
-        <tr v-for="{ pattern, type }, columnName in columns">
-          <td>{{ columnName }}</td>
-          <td>{{ type }}</td>
-          <td>{{ pattern }}</td>
-          <td>
-            <button @click="removeColumn(tableName, columnName)">remove</button>
-          </td>
+          <th>user</th>
+          <th>id</th>
+          <th v-for="columnType, columnName in columnInfo">
+            {{ columnName }} ({{ columnType }})
+            <button @click="removeColumn(tableName, columnName)">x</button>
+          </th>
+          <th>
+            <button @click="addColumn(tableName)">+</button>
+          </th>
         </tr>
       </table>
     </div>
-    <h3>New SQL Mapping</h3>
-    <h4>table</h4>
-    <input v-model="newMapping.table" />
-    <h4>column</h4>
-    <input v-model="newMapping.column" />
-    <h4>type</h4>
-    <select v-model="newMapping.type">
-      <option>boolean</option>
-      <option>integer</option>
-      <option>string</option>
-    </select>
-    <h4>pattern</h4>
-    <input v-model="newMapping.pattern" />
-    <button @click="createNewMapping">Create</button>
   </div>
   <div v-else>
     loading config...
@@ -41,19 +30,11 @@
 
 <script>
 
-const copy = x => JSON.parse(JSON.stringify(x))
-
-const DEFAULT_NEW_MAPPING = {
-  pattern: '',
-  table: '',
-  column: '',
-  type: 'boolean'
-}
+const VALID_TYPES = ['integer', 'string', 'boolean']
 
 export default {
   data() {
     return {
-      newMapping: copy(DEFAULT_NEW_MAPPING),
       config: null
     }
   },
@@ -62,18 +43,27 @@ export default {
     if (!this.config.tables) this.config.tables = {}
   },
   methods: {
-    createNewMapping() {
-      const { pattern, table, column, type } = this.newMapping
-      this.newMapping = copy(DEFAULT_NEW_MAPPING)
-      const { tables } = this.config
+    createTable() {
+      const name = prompt('Table Name:')
+      if (name === null) return
+      if (this.config.tables[name]) return alert(`Table "${name}" already exists.`)
 
-      if (!tables[table]) tables[table] = {}
-      if (!tables[table][column]) tables[table][column] = {}
-      tables[table][column] = { pattern, type }
+      this.config.tables[name] = {}
+      this.newTableName = ''
+    },
+    addColumn(table) {
+      const name = prompt('Column Name:')
+      if (this.config.tables[table][name]) return
+      const type = prompt('Column Type:')
+      if (!VALID_TYPES.includes(type)) return alert(`"${type}" is invalid. Valid types are: ${VALID_TYPES.join(' ')}`)
+
+      this.config.tables[table][name] = type
+    },
+    removeTable(table) {
+      delete this.config.tables[table]
     },
     removeColumn(table, column) {
       delete this.config.tables[table][column]
-      if (Object.keys(this.config.tables[table]).length === 0) delete this.config.tables[table]
     }
   }
 }
