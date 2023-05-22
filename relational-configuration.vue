@@ -10,7 +10,7 @@
       </h1>
       <table>
         <tr>
-          <th>user</th>
+          <th>owner</th>
           <th>id</th>
           <th v-for="columnType, columnName in columnInfo">
             {{ columnName }} ({{ columnType }})
@@ -53,8 +53,10 @@ export default {
     },
     addColumn(table) {
       const name = prompt('Column Name:')
-      if (this.config.tables[table][name]) return
+      if (!name) return
+      if (this.config.tables[table][name]) return alert(`Column "${name}" already exists`)
       const type = prompt('Column Type:')
+      if (!type) return
       if (!VALID_TYPES.includes(type)) return alert(`"${type}" is invalid. Valid types are: ${VALID_TYPES.join(' ')}`)
 
       this.config.tables[table][name] = type

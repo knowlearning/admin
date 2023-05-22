@@ -10,7 +10,8 @@
     <button @click="create">create content</button>
     <button @click="() => upload()">upload file</button>
     <button @click="() => upload(true)">upload folder</button>
-    <button @click="logout">logout</button>
+    <button @click="logout">log out</button>
+    <button @click="claimDomain">claim domain</button>
     <Window
       v-for="([wid, { root }]) in Object.entries(windows)"
       :key="wid"
@@ -120,6 +121,10 @@
       },
       logout() {
         if (confirm('Are you sure you want to log out?')) Agent.logout()
+      },
+      async claimDomain() {
+        const domain = prompt('Domain to claim:')
+        const claim = await Agent.claim(domain)
       },
       async addWindow(id, x, y, root, scope=uuid(), state) {
         const width = 40
