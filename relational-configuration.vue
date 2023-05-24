@@ -1,7 +1,8 @@
 <template>
-  <div v-if="tables">
+  <div v-if="loaded">
     <div>
-      <button @click="createTable">Create new table</button>
+      <button @click="createTable">new table</button>
+      <button @click="createComputedScope">new computed scope</button>
     </div>
     <div v-for="columnInfo, tableName in tables">
       <h1>
@@ -22,6 +23,10 @@
         </tr>
       </table>
     </div>
+    <div v-for="_, scopeName in scopes">
+      <h1>{{ scopeName }}</h1>
+      <textarea v-model="scopes[scopeName]" />
+    </div>
   </div>
   <div v-else>
     loading...
@@ -35,11 +40,19 @@ const VALID_TYPES = ['integer', 'string', 'boolean']
 export default {
   data() {
     return {
-      tables: null
+      loaded: false,
+      tables: null,
+      scopes: null
     }
   },
   async created() {
-    this.tables = await Agent.mutate('tables')
+    const [tables, scopes] = await Promise.all([
+      Agent.mutate('tables'),
+      Agent.mutate('scopes')
+    ])
+    this.tables = tables
+    this.scopes = scopes
+    this.loaded = true
   },
   methods: {
     createTable() {
@@ -48,7 +61,6 @@ export default {
       if (this.tables[name]) return alert(`Table "${name}" already exists.`)
 
       this.tables[name] = {}
-      this.newTableName = ''
     },
     addColumn(table) {
       const name = prompt('Column Name:')
@@ -65,6 +77,13 @@ export default {
     },
     removeColumn(table, column) {
       delete this.tables[table][column]
+    },
+    createComputedScope() {
+      const name = prompt('Scope Name:')
+      if (name === null) return
+      if (this.scopes[name]) return alert(`Computed Scope "${name}" already exists.`)
+
+      this.scopes[name] = ''
     }
   }
 }
