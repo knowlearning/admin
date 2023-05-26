@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loaded">
+  <div>
     <div>
       <button @click="createTable">new table</button>
       <button @click="createComputedScope">new computed scope</button>
@@ -28,9 +28,6 @@
       <textarea v-model="scopes[scopeName]" />
     </div>
   </div>
-  <div v-else>
-    loading...
-  </div>
 </template>
 
 <script>
@@ -38,21 +35,13 @@
 const VALID_TYPES = ['integer', 'string', 'boolean']
 
 export default {
-  data() {
-    return {
-      loaded: false,
-      tables: null,
-      scopes: null
-    }
+  props: {
+    domain: String,
+    config: Object
   },
-  async created() {
-    const [tables, scopes] = await Promise.all([
-      Agent.mutate('tables'),
-      Agent.mutate('scopes')
-    ])
-    this.tables = tables
-    this.scopes = scopes
-    this.loaded = true
+  computed: {
+    tables() { return this.config.tables },
+    scopes() { return this.config.scopes }
   },
   methods: {
     createTable() {

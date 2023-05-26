@@ -11,7 +11,6 @@
     <button @click="() => upload()">upload file</button>
     <button @click="() => upload(true)">upload folder</button>
     <button @click="logout">log out</button>
-    <button @click="claimDomain">claim domain</button>
     <Window
       v-for="([wid, { root }]) in Object.entries(windows)"
       :key="wid"
@@ -33,7 +32,7 @@
     >
       <div>Saving...</div>
     </div>
-    <RelationalConfiguration />
+    <DomainConfig />
   </div>
   <input
     style="display: none;"
@@ -52,7 +51,7 @@
   import initFileInput from './methods/init-file-input.js'
   import ContentTag from './content-tag.vue'
   import UserProfileImage from './user-profile-image.vue'
-  import RelationalConfiguration from './relational-configuration.vue'
+  import DomainConfig from './domain-config.vue'
 
   const WATCH_SCOPE_CONTENT = './watch-scope.js'
 
@@ -70,10 +69,11 @@
       LoginMenu,
       ContentTag,
       UserProfileImage,
-      RelationalConfiguration
+      DomainConfig
     },
     data() {
       return {
+        configDomain: null,
         user: null,
         provider: null,
         windows: {},
@@ -121,10 +121,6 @@
       },
       logout() {
         if (confirm('Are you sure you want to log out?')) Agent.logout()
-      },
-      async claimDomain() {
-        const domain = prompt('Domain to claim:')
-        const claim = await Agent.claim(domain)
       },
       async addWindow(id, x, y, root, scope=uuid(), state) {
         const width = 40
