@@ -24,7 +24,7 @@
       </table>
     </div>
     <div v-for="_, scopeName in scopes">
-      <h1>{{ scopeName }}</h1>
+      <h1>{{ scopeName }} <button @click="delete scopes[scopeName]">x</button></h1>
       <textarea v-model="scopes[scopeName]" />
     </div>
   </div>

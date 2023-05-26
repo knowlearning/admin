@@ -8,6 +8,7 @@
         {{ domain }}
       </option>
     </select>
+    <button v-if="domain" @click="removeDomainConfig">x</button>
     <button @click="claim">claim new domain</button>
     <RelationalConfiguration
       v-if="domain"
@@ -46,6 +47,12 @@ export default {
         tables: {},
         authorizations: {},
         scopes: {}
+      }
+    },
+    async removeDomainConfig() {
+      if (confirm(`Are you sure you want to remove your configuration for "${this.domain}"`)) {
+        delete this.config[this.domain]
+        this.domain = null
       }
     }
   }
