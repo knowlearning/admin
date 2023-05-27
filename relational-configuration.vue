@@ -13,6 +13,7 @@
         <tr>
           <th>owner</th>
           <th>id</th>
+          <th>updated</th>
           <th v-for="columnType, columnName in columnInfo">
             {{ columnName }} ({{ columnType }})
             <button @click="removeColumn(tableName, columnName)">x</button>
