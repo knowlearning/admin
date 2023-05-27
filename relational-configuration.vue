@@ -60,7 +60,8 @@ export default {
   },
   computed: {
     tables() { return this.config.tables },
-    scopes() { return this.config.scopes }
+    scopes() { return this.config.scopes },
+    functions() { return this.config.functions }
   },
   methods: {
     createTable() {
