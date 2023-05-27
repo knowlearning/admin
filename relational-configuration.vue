@@ -24,6 +24,10 @@
         </tr>
       </table>
     </div>
+    <div v-for="_, procedureName in procedures">
+      <h1>{{ procedureName }} <button @click="delete procedure[procedureName]">x</button></h1>
+      <textarea v-model="procedure[procedureName]" />
+    </div>
     <div v-for="_, scopeName in scopes">
       <h1>{{ scopeName }} <button @click="delete scopes[scopeName]">x</button></h1>
       <textarea v-model="scopes[scopeName]" />

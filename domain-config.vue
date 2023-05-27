@@ -45,6 +45,7 @@ export default {
       alert(`Set "${token}" as record at "${domain}" to get admin status.`)
       if (!this.config.domain) this.config[domain] = {
         tables: {},
+        procedures: {},
         authorizations: {},
         scopes: {}
       }
