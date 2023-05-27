@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div>
-      <button @click="createTable">new table</button>
-      <button @click="createComputedScope">new computed scope</button>
-    </div>
+    <h1>
+      Tables
+      <button @click="createTable">+</button>
+    </h1>
     <div v-for="columnInfo, tableName in tables">
-      <h1>
+      <h2>
         {{ tableName }}
         <button @click="removeTable(tableName)">x</button>
-      </h1>
+      </h2>
       <table>
         <tr>
           <th>owner</th>
@@ -24,12 +24,26 @@
         </tr>
       </table>
     </div>
-    <div v-for="_, procedureName in procedures">
-      <h1>{{ procedureName }} <button @click="delete procedure[procedureName]">x</button></h1>
-      <textarea v-model="procedure[procedureName]" />
+    <h1>
+      Functions
+      <button @click="createFunction">+</button>
+    </h1>
+    <div v-for="_, functionName in functions">
+      <h2>
+        {{ functionName }}
+        <button @click="delete functions[functionName]">x</button>
+      </h2>
+      <textarea v-model="functions[functionName]" />
     </div>
+    <h1>
+      Scopes
+      <button @click="createComputedScope">+</button>
+    </h1>
     <div v-for="_, scopeName in scopes">
-      <h1>{{ scopeName }} <button @click="delete scopes[scopeName]">x</button></h1>
+      <h2>
+        {{ scopeName }}
+        <button @click="delete scopes[scopeName]">x</button>
+      </h2>
       <textarea v-model="scopes[scopeName]" />
     </div>
   </div>
@@ -55,6 +69,13 @@ export default {
       if (this.tables[name]) return alert(`Table "${name}" already exists.`)
 
       this.tables[name] = {}
+    },
+    createFunction() {
+      const name = prompt('Function Name:')
+      if (name === null) return
+      if (this.functions[name]) return alert(`Table "${name}" already exists.`)
+
+      this.functions[name] = ''
     },
     addColumn(table) {
       const name = prompt('Column Name:')
