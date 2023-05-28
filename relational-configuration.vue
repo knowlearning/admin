@@ -90,7 +90,7 @@ export default {
         language: 'PLpgSQL',
         args: [],
         type: 'BOOLEAN',
-        body: 'RETURN TRUE'
+        body: 'BEGIN\n  RETURN TRUE\nEND;'
       }
     },
     addColumn(table) {
