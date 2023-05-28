@@ -28,12 +28,22 @@
       Functions
       <button @click="createFunction">+</button>
     </h1>
-    <div v-for="_, functionName in functions">
+    <div v-for="fn, functionName in functions">
       <h2>
         {{ functionName }}
         <button @click="delete functions[functionName]">x</button>
       </h2>
-      <textarea v-model="functions[functionName]" />
+      Returns:
+      <select v-model="fn.type">
+        <option>BOOLEAN</option>
+        <option>TEXT</option>
+      </select>
+      Language:
+      <select v-model="fn.language">
+        <option>PLpgSQL</option>
+      </select>
+      Arguments: <input v-model="fn.args" /><br>
+      Body: <textarea v-model="fn.body" />
     </div>
     <h1>
       Scopes
@@ -76,7 +86,12 @@ export default {
       if (name === null) return
       if (this.functions[name]) return alert(`Table "${name}" already exists.`)
 
-      this.functions[name] = ''
+      this.functions[name] = {
+        language: 'PLpgSQL',
+        args: [],
+        type: 'BOOLEAN',
+        body: 'RETURN TRUE'
+      }
     },
     addColumn(table) {
       const name = prompt('Column Name:')
