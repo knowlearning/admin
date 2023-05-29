@@ -33,16 +33,22 @@
         {{ functionName }}
         <button @click="delete functions[functionName]">x</button>
       </h2>
-      Returns:
-      <select v-model="fn.type">
-        <option>BOOLEAN</option>
-        <option>TEXT</option>
-      </select>
+      Returns: <TypeSelecter v-model="fn.type" />
       Language:
       <select v-model="fn.language">
         <option>PLpgSQL</option>
       </select>
-      Arguments: <input v-model="fn.args" /><br>
+      Arguments:
+      <div v-for="argument, i in fn.arguments">
+        <button @click="addArgument(fn.arguments, i)">+</button>
+        (
+          name: <input v-model="argument.name" />
+          type: <TypeSelecter v-model="argument.type" />
+          <button @click="removeArgument(fn.arguments, i)">x</button>
+        )
+      </div>
+      <button @click="addArgument(fn.arguments, fn.arguments.length)">+</button>
+      <br>
       Body: <textarea v-model="fn.body" />
     </div>
     <h1>
@@ -60,10 +66,14 @@
 </template>
 
 <script>
+import TypeSelecter from './type-selecter.vue'
 
 const VALID_TYPES = ['integer', 'string', 'boolean']
 
 export default {
+  components: {
+    TypeSelecter
+  },
   props: {
     domain: String,
     config: Object
@@ -88,7 +98,7 @@ export default {
 
       this.functions[name] = {
         language: 'PLpgSQL',
-        args: [],
+        arguments: [],
         type: 'BOOLEAN',
         body: 'BEGIN\n  RETURN TRUE;\nEND;'
       }
@@ -102,6 +112,18 @@ export default {
       if (!VALID_TYPES.includes(type)) return alert(`"${type}" is invalid. Valid types are: ${VALID_TYPES.join(' ')}`)
 
       this.tables[table][name] = type
+    },
+    addArgument(list, index) {
+      // TODO: remove this copy hack once the core bug about inserting mutable state inside of lists is fixed
+      const copy = JSON.parse(JSON.stringify(list))
+      copy.splice(index, 0, { name: 'name', type: 'BOOLEAN' })
+      list.splice(0, list.length, ...copy)
+    },
+    removeArgument(list, index) {
+      // TODO: remove this copy hack once the core bug about inserting mutable state inside of lists is fixed
+      const copy = JSON.parse(JSON.stringify(list))
+      copy.splice(index, 1)
+      list.splice(0, list.length, ...copy)
     },
     removeTable(table) {
       delete this.tables[table]
