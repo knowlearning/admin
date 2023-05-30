@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@knowlearning/agents':
-    specifier: ^0.3.4
-    version: 0.3.4
+    specifier: ^0.3.5
+    version: 0.3.5
   '@vitejs/plugin-basic-ssl':
     specifier: ^1.0.1
     version: 1.0.1(vite@4.3.5)
@@ -704,8 +704,8 @@ packages:
       yargs: 17.7.2
     dev: false
 
-  /@knowlearning/agents@0.3.4:
-    resolution: {integrity: sha512-AECqx2nyVfTip5ZDF0YbvL+o0W8Jihul+uBZMjdZpVhW83sOs5E1PQusiPefTIJRUidTcwCGg7ICBfsocAEu/w==}
+  /@knowlearning/agents@0.3.5:
+    resolution: {integrity: sha512-3AL/7yuuUdznNuMr00+T0fvIiBi5/oycN5RfAmJQXQngrdEgTxfTp41H2Ok8kF6p4VTmSx+/7CGldjmk8xHkDg==}
     dependencies:
       fast-json-patch: 3.1.1
       firebase: 9.21.0
