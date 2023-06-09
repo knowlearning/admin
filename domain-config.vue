@@ -10,11 +10,9 @@
     </select>
     <button v-if="domain" @click="removeDomainConfig">x</button>
     <button @click="claim">claim new domain</button>
-    <RelationalConfiguration
-      v-if="domain"
-      :domain="domain"
-      :config="config[domain]"
-    />
+    <div v-if="domain ">
+      config yaml: <input v-model="config[domain].config" />
+    </div>
   </div>
   <div v-else>
     loading...
@@ -43,11 +41,10 @@ export default {
       const domain = prompt('Domain to claim:')
       const { token } = await Agent.claim(domain)
       alert(`Set "${token}" as record at "${domain}" to get admin status.`)
-      if (!this.config.domain) this.config[domain] = {
-        tables: {},
-        functions: {},
-        authorizations: {},
-        scopes: {}
+      if (!this.config[domain]) {
+        this.config[domain] = {
+          config: null
+        }
       }
     },
     async removeDomainConfig() {
