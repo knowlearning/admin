@@ -73,7 +73,6 @@
     },
     data() {
       return {
-        configDomain: null,
         user: null,
         provider: null,
         windows: {},
