@@ -11,7 +11,20 @@
     <button v-if="domain" @click="removeDomainConfig">x</button>
     <button @click="claim">claim new domain</button>
     <div v-if="domain ">
-      config yaml: <input v-model="config[domain].config" />
+      config yaml:
+      <input v-model="config[domain].config" />
+      <input
+        ref="fileInput"
+        style="display: none;"
+        type="file"
+        @change="uploadFile"
+      >
+      <button
+        class="top-button"
+        @click="$refs.fileInput.click()"
+      >
+        Upload
+      </button>
     </div>
   </div>
   <div v-else>
@@ -34,7 +47,7 @@ export default {
     }
   },
   async created() {
-    this.config = await Agent.mutate('config')
+    this.config = await Agent.state('config')
   },
   methods: {
     async claim() {
@@ -52,7 +65,14 @@ export default {
         delete this.config[this.domain]
         this.domain = null
       }
-    }
+    },
+    async uploadFile(e) {
+      const file = e.target.files[0]
+      const id = await Agent.upload(file.name, file.type, file)
+      e.target.value = ''
+
+      this.config[this.domain] = { config: id }
+    },
   }
 }
 
