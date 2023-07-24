@@ -25,6 +25,7 @@
       >
         Upload
       </button>
+      <RelationalQueryInterface :domain="domain" />
     </div>
   </div>
   <div v-else>
@@ -34,11 +35,11 @@
 
 <script>
 
-import RelationalConfiguration from './relational-configuration.vue'
+import RelationalQueryInterface from './relational-query-interface.vue'
 
 export default {
   components: {
-    RelationalConfiguration
+    RelationalQueryInterface
   },
   data() {
     return {
