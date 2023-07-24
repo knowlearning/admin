@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@knowlearning/agents':
-    specifier: ^0.5.9
-    version: 0.5.9(react-native@0.71.12)
+    specifier: ^0.5.10
+    version: 0.5.10(react-native@0.71.12)
   '@vitejs/plugin-basic-ssl':
     specifier: ^1.0.1
     version: 1.0.1(vite@4.3.9)
@@ -1795,8 +1795,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: false
 
-  /@knowlearning/agents@0.5.9(react-native@0.71.12):
-    resolution: {integrity: sha512-w3woYm57kQLBHa5NTmheqvCDwCt58Ta5Pd8ksX7HhAbZmejVIZ9TpdblxlAvgS4/9ZtpiDLVnKfqEB6MOAlulQ==}
+  /@knowlearning/agents@0.5.10(react-native@0.71.12):
+    resolution: {integrity: sha512-fvEFLcyMcc+JIi/kLtl65aLEn21PaT2xSYjVbjragE97iYNcOf5eJTcjwHJ3x0FSWdvx89FYec+NKfFJKZyN2Q==}
     dependencies:
       '@firebase/app': 0.9.14
       '@firebase/auth': 1.0.0(@firebase/app@0.9.14)(react-native@0.71.12)
