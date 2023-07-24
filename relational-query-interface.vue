@@ -42,6 +42,7 @@
     },
     methods: {
       async submitQuery() {
+        this.results = null
         const { rows } = await Agent.query(this.query, [], this.domain)
         this.results = rows
       }
