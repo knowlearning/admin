@@ -5,18 +5,21 @@
       v-model="query"
       @keypress.shift.enter.prevent="submitQuery"
     ></textarea>
-    <table>
-      <thead>
-        <tr>
-          <th v-for="name in columnNames">{{ name }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="row in results">
-          <td v-for="name in columnNames">{{ row[name] }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div v-if="rows">
+      <table>
+        <thead>
+          <tr>
+            <th v-for="column in columns">{{ column }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in rows">
+            <td v-for="value in row">{{ value }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div v-if="rows.length === 0">0 rows in result</div>
+    </div>
   </div>
 </template>
 
@@ -29,22 +32,16 @@
     data() {
       return {
         query: 'SELECT * FROM test_table_2',
-        results: null
-      }
-    },
-    computed: {
-      columnNames() {
-        if (this.results && this.results.length) {
-          return Object.keys(this.results[0])
-        }
-        else return []
+        rows: null,
+        columns: null
       }
     },
     methods: {
       async submitQuery() {
-        this.results = null
-        const { rows } = await Agent.query(this.query, [], this.domain)
-        this.results = rows
+        this.rows = null
+        const { rows, columns } = await Agent.query(this.query, [], this.domain)
+        this.rows = rows
+        this.columns = columns
       }
     }
   }
