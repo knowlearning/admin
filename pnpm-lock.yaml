@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@knowlearning/agents':
-    specifier: ^0.6.2
-    version: 0.6.2
+    specifier: ^0.6.4
+    version: 0.6.4
   '@vitejs/plugin-basic-ssl':
     specifier: ^1.0.1
     version: 1.0.1(vite@4.3.9)
@@ -230,11 +230,13 @@ packages:
   /@jridgewell/sourcemap-codec@1.4.15:
     resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
 
-  /@knowlearning/agents@0.6.2:
-    resolution: {integrity: sha512-ny0VEqKCsVFIpfTeg4Iq23DpNI5PtZJ1Ttyn2lSU4VYoxuO4gSbRzIzsaf5l1uZU2g6L1Qw/uI5tewiBY5RavA==}
+  /@knowlearning/agents@0.6.4:
+    resolution: {integrity: sha512-hePpzb9DeONBva5Km/FH7+tNqPABptVQPLmRI5+98jOkSVGfhir94MW/B+Qk/YX94ieLbkwJN5Ek4paU7vflPw==}
     dependencies:
       fast-json-patch: 3.1.1
       uuid: 8.3.2
+      vue: 3.3.4
+      vuex: 4.1.0(vue@3.3.4)
     dev: false
 
   /@vitejs/plugin-basic-ssl@1.0.1(vite@4.3.9):
@@ -290,6 +292,10 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.3.4
       '@vue/shared': 3.3.4
+
+  /@vue/devtools-api@6.5.0:
+    resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
+    dev: false
 
   /@vue/reactivity-transform@3.3.4:
     resolution: {integrity: sha512-MXgwjako4nu5WFLAjpBnCj/ieqcjE2aJBINUNQzkZQfzIZA4xn+0fV1tIYBJvvva3N3OvKGofRLvQIwEQPpaXw==}
@@ -462,3 +468,12 @@ packages:
       '@vue/runtime-dom': 3.3.4
       '@vue/server-renderer': 3.3.4(vue@3.3.4)
       '@vue/shared': 3.3.4
+
+  /vuex@4.1.0(vue@3.3.4):
+    resolution: {integrity: sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.3.4
+    dev: false
